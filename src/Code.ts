@@ -177,7 +177,7 @@ function open(sheetId: string, sheetName: string){
     }
 
     function isMatch(row: StringKeyObject, where: string): boolean {
-        const toJudge = (value1: number | string | Date, op: string, value2: number | string | Date) => {
+        const toJudge = (value1: number | string | Date | Boolean, op: string, value2: number | string | Date | Boolean) => {
             if(op === '='){
                 return value1 === value2;
             }else if(op === '>='){
@@ -198,6 +198,17 @@ function open(sheetId: string, sheetName: string){
         where = where.replace(/([\wぁ-んァ-ヶ亜-熙]+)\s+(>=|<=|<>|>|<|=)\s+([0-9]+)/g, (match: string, name: string, op: string, value: string) => {
             if(Object.prototype.hasOwnProperty.call(row, name)){
                 return String(toJudge(row[name], op, Number(value)));
+            } else {
+                console.log(`The field name "${name}" was not found.('${match}')`);
+                return match;
+            }
+        });
+
+        where = where.replace(/([\wぁ-んァ-ヶ亜-熙]+)\s+(>=|<=|<>|>|<|=)\s+(true|false|True|False|TRUE|FALSE)/g, (match: string, name: string, op: string, value: string) => {
+            const bool = (value.match(/true/i) ? true : false);
+
+            if(Object.prototype.hasOwnProperty.call(row, name)){
+                return String(toJudge(row[name], op, bool));
             } else {
                 console.log(`The field name "${name}" was not found.('${match}')`);
                 return match;
