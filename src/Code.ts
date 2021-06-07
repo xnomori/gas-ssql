@@ -224,7 +224,7 @@ function open(sheetId: string, sheetName: string){
             }
         });
 
-        where = where.replace(/([\wぁ-んァ-ヶ亜-熙]+)\s+(>=|<=|<>|>|<|=)\s+date\s+(['"`])((?:(?!\3)[\s\S])*)\3/, (match: string, name: string, op: string, _a, value: string) => {
+        where = where.replace(/([\wぁ-んァ-ヶ亜-熙]+)\s+(>=|<=|<>|>|<|=)\s+date\s+(['"`])((?:(?!\3)[\s\S])*)\3/g, (match: string, name: string, op: string, _a, value: string) => {
             const date = new Date(value)
 
             if(date.toString() === 'Invalid Date'){
