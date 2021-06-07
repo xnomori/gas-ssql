@@ -199,6 +199,7 @@ function open(sheetId: string, sheetName: string){
             if(Object.prototype.hasOwnProperty.call(row, name)){
                 return String(toJudge(row[name], op, Number(value)));
             } else {
+                console.log(`The field name "${name}" was not found.('${match}')`);
                 return match;
             }
         });
@@ -207,28 +208,29 @@ function open(sheetId: string, sheetName: string){
             if(Object.prototype.hasOwnProperty.call(row, name)){
                 return String(toJudge(row[name], op, value));
             } else {
+                console.log(`The field name "${name}" was not found.('${match}')`);
                 return match;
             }
-        })
+        });
 
         where = where.replace(/([\wぁ-んァ-ヶ亜-熙]+)\s+(>=|<=|<>|>|<|=)\s+date\s+(['"`])((?:(?!\3)[\s\S])*)\3/, (match: string, name: string, op: string, _a, value: string) => {
-            try {
-                const date = new Date(value)
+            const date = new Date(value)
 
-                if(Object.prototype.hasOwnProperty.call(row, name)){
-                    return String(toJudge(row[name], op, date));
-                } else {
-                    return match;
-                }
-            }
-            catch(e) {
-                console.log('This string cannot be converted to date type.(' + value + ')')
+            if(date.toString() === 'Invalid Date'){
+                console.log(`This string "${value}" cannot be converted to date type.('${match}')`)
                 return match;
             }
-        })
+
+            if(Object.prototype.hasOwnProperty.call(row, name)){
+                return String(toJudge(row[name], op, date));
+            } else {
+                console.log(`The field name "${name}" was not found.('${match}')`);
+                return match;
+            }
+        });
 
         if(!where.match(/^(and|or|\s|true|false|\(|\))+$/i)){
-            return false;
+            throw new Error(`There is a problem in the description of the where statement.('${where}')`);
         }
 
         where = where.replace(/(and|or)/gi, (match: string) => {
@@ -241,7 +243,11 @@ function open(sheetId: string, sheetName: string){
             }
         });
 
-        return Function("return (" + where + ")")();      
+        try {
+            return Function("return (" + where + ")")();
+        } catch(e){
+            throw new Error(`There is a problem in the description of the where statement.('${where}')`);
+        }
     }
 
     return new SSQL(sheetId, sheetName);
