@@ -20,7 +20,7 @@ const values = SSQL.open(id, name).selectQ(['name', 'age']);
 console.log(values);
 ```
 
-You can use "*" in the field name, but if you use "*", other specified items will be ignored. Duplicate field names cannot be used because the return value is json array.
+You can use "\*" in the field name, but if you use "\*", other specified items will be ignored. Duplicate field names cannot be used because the return value is json array.
 
 Example: When all field names are id, name, age.
 ```js
