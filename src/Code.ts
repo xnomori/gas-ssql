@@ -33,7 +33,7 @@ function open(sheetId: string, sheetName: string){
             }
         }
 
-        selectQ(keys: string[], where: string){
+        selectQ(keys: string[], where: string = ""){
             const self = privates(this);
             let rows: StringKeyObject[] = self.getRows();
 
