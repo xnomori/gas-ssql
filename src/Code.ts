@@ -195,7 +195,11 @@ function open(sheetId: string, sheetName: string){
             }           
         } 
 
-        where = where.replace(/([\wぁ-んァ-ヶ亜-熙]+)\s+(>=|<=|<>|>|<|=)\s+([0-9]+)/g, (match: string, name: string, op: string, value: string) => {
+        where = where.replace(/([\w]+|\[(?:(?!\[)[\s\S])*\])\s+(>=|<=|<>|>|<|=)\s+([0-9]+)/g, (match: string, name: string, op: string, value: string) => {
+            if(name[0] === "["){
+                name = name.slice(1,-1);
+            }
+
             if(Object.prototype.hasOwnProperty.call(row, name)){
                 return String(toJudge(row[name], op, Number(value)));
             } else {
@@ -204,7 +208,11 @@ function open(sheetId: string, sheetName: string){
             }
         });
 
-        where = where.replace(/([\wぁ-んァ-ヶ亜-熙]+)\s+(>=|<=|<>|>|<|=)\s+(true|false|True|False|TRUE|FALSE)/g, (match: string, name: string, op: string, value: string) => {
+        where = where.replace(/(\w+|\[(?:(?!\[)[\s\S])*\])\s+(>=|<=|<>|>|<|=)\s+(true|false|True|False|TRUE|FALSE)/g, (match: string, name: string, op: string, value: string) => {
+            if(name[0] === "["){
+                name = name.slice(1,-1);
+            }
+
             const bool = (value.match(/true/i) ? true : false);
 
             if(Object.prototype.hasOwnProperty.call(row, name)){
@@ -215,7 +223,11 @@ function open(sheetId: string, sheetName: string){
             }
         });
 
-        where = where.replace(/([\wぁ-んァ-ヶ亜-熙]+)\s+(>=|<=|<>|>|<|=)\s+(['"`])((?:(?!\3)[\s\S])*)\3/g, (match: string, name: string, op: string, _a, value: string) => {
+        where = where.replace(/(\w+|\[(?:(?!\[)[\s\S])*\])\s+(>=|<=|<>|>|<|=)\s+(['"`])((?:(?!\3)[\s\S])*)\3/g, (match: string, name: string, op: string, _a, value: string) => {
+            if(name[0] === "["){
+                name = name.slice(1,-1);
+            }
+
             if(Object.prototype.hasOwnProperty.call(row, name)){
                 return String(toJudge(row[name], op, value));
             } else {
@@ -224,7 +236,11 @@ function open(sheetId: string, sheetName: string){
             }
         });
 
-        where = where.replace(/([\wぁ-んァ-ヶ亜-熙]+)\s+(>=|<=|<>|>|<|=)\s+date\s+(['"`])((?:(?!\3)[\s\S])*)\3/g, (match: string, name: string, op: string, _a, value: string) => {
+        where = where.replace(/(\w+|\[(?:(?!\[)[\s\S])*\])\s+(>=|<=|<>|>|<|=)\s+date\s+(['"`])((?:(?!\3)[\s\S])*)\3/g, (match: string, name: string, op: string, _a, value: string) => {
+            if(name[0] === "["){
+                name = name.slice(1,-1);
+            }
+
             const date = new Date(value)
 
             if(date.toString() === 'Invalid Date'){
