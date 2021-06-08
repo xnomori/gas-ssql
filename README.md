@@ -9,6 +9,11 @@ Apps Script>Libraries>Add a Library>Script ID:`1NS-PMCAYnX1JoscFpPqhjp27EqABc_xg
 
 
 # Usage
+The first line can be used for the field name, and the second and subsequent lines can be used for the data sheet.
+
+![Data sheet sample](https://i.gyazo.com/bbb3f11f08d05e558bceaa43d8df03dc.png "sample")
+
+
 ## Select
 ```js
 const id = 'SpreadSheets ID';
