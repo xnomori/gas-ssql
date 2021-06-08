@@ -3,3 +3,6 @@ dist/
 
 Sample.ts
 .clasp.json
+tsconfig.json
+.eslintrc.json
+package-lock.json
