@@ -177,7 +177,7 @@ function open(sheetId: string, sheetName: string){
     }
 
     function isMatch(row: StringKeyObject, where: string): boolean {
-        const toJudge = (value1: number | string | Date | Boolean, op: string, value2: number | string | Date | Boolean) => {
+        const toJudge = (value1: number | string | Boolean, op: string, value2: number | string | Boolean) => {
             if(op === '='){
                 return value1 === value2;
             }else if(op === '>='){
@@ -248,8 +248,14 @@ function open(sheetId: string, sheetName: string){
                 return match;
             }
 
+            const value1 = new Date(row[name]);
+
+            if(value1.toString() === 'Invalid Date'){
+                return "false";
+            }            
+
             if(Object.prototype.hasOwnProperty.call(row, name)){
-                return String(toJudge(row[name], op, date));
+                return String(toJudge(value1.getTime(), op, date.getTime()));
             } else {
                 console.log(`The field name "${name}" was not found.('${match}')`);
                 return match;
