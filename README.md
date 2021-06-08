@@ -132,10 +132,23 @@ SSQL.open(id, name).selectQ(["*"], "japanese = true");
 Space is required as a delimiter.
 ```JavaScript
 // ok
-open(id, name).select(["name", "age"], "age > 20");
+SSQL.open(id, name).select(["name", "age"], "age > 20");
 // ng
-open(id, name).select(["name", "age"], "age>20");
+SSQL.open(id, name).select(["name", "age"], "age>20");
 
+```
+
+<br>
+
+## Supports Japanese field names
+When using a Japanese field name in the Where clause, enclose the field name in "[ ]".
+
+Example
+```js
+// ok
+SSQL.open(id, name).select(["*"], "[年齢] = 20");
+// ng
+SSQL.open(id, name).select(["*"], "年齢 = 20");
 ```
 
 <br>
