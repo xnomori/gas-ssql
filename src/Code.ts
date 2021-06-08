@@ -133,7 +133,7 @@ function open(sheetId: string, sheetName: string){
                 if(i === 0){
                     rowPosition = num;
                     howMany = 1;
-                } else if((rowPosition-howMany) === num){
+                } else if((rowPosition-1) === num){
                     rowPosition = num;
                     howMany += 1;
                 } else {
