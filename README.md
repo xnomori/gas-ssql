@@ -23,6 +23,11 @@ const values = SSQL.open(id, name).selectQ(['name', 'age']);
 
 // [{"name": "Tom", "age": 28}, {"name": "Sophia", "age": 21}, ...]
 console.log(values);
+
+const valuesAs = SSQL.open(id, name).selectAs({"name": "name1", "age": "age1"});
+
+// [{"name1": "Tom", "age1": 28}, {"name1": "Sophia", "age1": 21}, ...]
+console.log(valuesAs);
 ```
 
 You can use "\*" in the field name, but if you use "\*", other specified items will be ignored. Duplicate field names cannot be used because the return value is json array.

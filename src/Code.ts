@@ -60,6 +60,43 @@ function open(sheetId: string, sheetName: string){
             return selectRows;
         }
 
+        selectAs(keys: StringKeyObject, where: string = ""){
+            const self = privates(this);
+            let rows: StringKeyObject[] = self.getRows();
+
+            if(where.trim() !== ''){
+                rows = rows.filter((row) => self.isMatch(row, where));
+            }
+
+            let keys2: string[][] = [];
+
+            for(let k in keys){
+                if(k === "*"){
+                    const ks: string[] = self.getKeys();
+
+                    ks.forEach((v) => {
+                        keys2.push([v, v]);
+                    })
+                } else {
+                    keys2.push([k, keys[k]]);
+                }
+            }
+    
+            const selectRows = rows.map((row) => {
+                let obj: StringKeyObject = {};
+                
+                keys2.forEach((v) => {
+                    if(Object.prototype.hasOwnProperty.call(row, v[0])){
+                        obj[v[1]] = row[v[0]]
+                    }
+                });
+    
+                return obj;
+            }) 
+    
+            return selectRows;
+        }
+
         insertQ(inserts: StringKeyObject[]): void {
             const self = privates(this);
             const keys = self.getKeys();
@@ -293,6 +330,16 @@ function open(sheetId: string, sheetName: string){
  * @return {object[]}
  */
 function selectQ(keys: string[], where: string): StringKeyObject[] {
+    throw new Error('This is a class method. Call it from the SSQL class.')
+}
+
+/**
+ * This method selects data from a spreadsheet. (Similar to SQL select) Change the field name to the specified one like the As clause and get it.
+ * @param {StringKeyObject} keys - 'keys' is an array of field names. For example {"id": "id", "name": "hoge"}.
+ * @param {string} where - 'where' is the extraction condition. For example "name = 'john' and age > 20".
+ * @return {object[]}
+ */
+ function selectAs(keys: StringKeyObject, where: string): StringKeyObject[] {
     throw new Error('This is a class method. Call it from the SSQL class.')
 }
 
