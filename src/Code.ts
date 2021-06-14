@@ -115,6 +115,7 @@ function open(sheetId: string, sheetName: string){
             });
 
             self.sheet.getRange(self.sheet.getDataRange().getLastRow() + 1, 1, values.length, keys.length).setValues(values);
+            return;
         }
 
         updateQ(updates: StringKeyObject, where: string): void {
@@ -143,6 +144,7 @@ function open(sheetId: string, sheetName: string){
 
                 self.sheet.getRange(row[self.counter] + ':' + row[self.counter]).setValues([value]);
             });
+            return;
         }
 
         deleteQ(where: string): void {
@@ -183,6 +185,7 @@ function open(sheetId: string, sheetName: string){
                     self.sheet.deleteRows(rowPosition, howMany)
                 }
             });
+            return;
         }
     }
 
