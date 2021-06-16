@@ -126,23 +126,14 @@ function open(sheetId: string, sheetName: string){
                 updateRows = updateRows.filter((row) => self.isMatch(row, where));
             }
 
-            updateRows = updateRows.sort((a,b) => a[self.counter] - b[self.counter]);
-
-
             const keys: string[] = self.getKeys();
 
             updateRows.forEach((row) => {
-                let value = Array(keys.length);
-
                 keys.forEach((key,i) => {
                     if(Object.prototype.hasOwnProperty.call(updates, key)){
-                        value[i] = updates[key];
-                    } else {
-                        value[i] = row[key];
-                    }
+                        self.sheet.getRange(row[self.counter], i + 1).setValue(updates[key]);
+                    }                    
                 });
-
-                self.sheet.getRange(row[self.counter] + ':' + row[self.counter]).setValues([value]);
             });
             return;
         }
