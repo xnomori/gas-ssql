@@ -98,6 +98,10 @@ function open(sheetId: string, sheetName: string){
         }
 
         insertQ(inserts: StringKeyObject[]): void {
+            if(inserts.length === 0){
+                return;
+            }
+
             const self = privates(this);
             const keys = self.getKeys();
             const values = inserts.map((row)=>{
