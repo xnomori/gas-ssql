@@ -3,9 +3,9 @@ SSQL is a library for treating Google Spreadsheet like a database. This library 
 
 
 # Installation
-Script ID: `1NS-PMCAYnX1JoscFpPqhjp27EqABc_xgk6tYn01n8-DbMYoMGaenGgDm`
+Script ID: `1uexgPHwOCQ1_POB1Me73iVqqNFEnp8hMn6TSgvWFru-hUUxwYVEzTMOQ`
 
-Apps Script>Libraries>Add a Library>Script ID:`1NS-PMCAYnX1JoscFpPqhjp27EqABc_xgk6tYn01n8-DbMYoMGaenGgDm`>Look up>Add
+Apps Script>Libraries>Add a Library>Script ID:`1uexgPHwOCQ1_POB1Me73iVqqNFEnp8hMn6TSgvWFru-hUUxwYVEzTMOQ`>Look up>Add
 
 
 # Usage
